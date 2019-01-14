@@ -1,1 +1,1 @@
-web:    java -Dswarm.http.port=$PORT -jar target/swarm-rs-1.0-SNAPSHOT-swarm.jar
+web: java -Dserver.port=$PORT -jar $PATH_TO_JAR
