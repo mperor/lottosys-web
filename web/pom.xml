@@ -52,6 +52,13 @@
             <properties>
                 <profile.name>dev</profile.name>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
         </profile>
         
         <profile>
