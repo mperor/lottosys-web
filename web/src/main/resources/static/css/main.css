@@ -1,0 +1,154 @@
+.lotto {
+    background-color: #FFFF33;
+    color: black;
+}
+
+.plus {
+    background-color: #337AB7;
+    color: white;
+}
+
+.bingo {
+    background-color : #1a8b55;
+    color : white;
+}
+
+.alert-success {
+    background-color : #1a8b55;
+}
+
+.page-header {
+    border:0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+footer {
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+.has-success {
+    border: 4px solid #5cb85c;
+    max-width: 80px;
+}
+
+.space {
+    margin-top: 20px;
+}
+
+.all{
+    background-color: silver;
+}
+
+.border {
+    border: 1px solid #5cb85c;
+}
+
+.panel-lotto {
+    margin-bottom:10px;
+    /*padding: 2px;*/
+}
+
+.panel-lotto h4 {
+    padding: 5px 0;
+    margin: 0;
+}
+
+.panel-lotto h5 {
+    background-color: #39444e;
+    color: #ebebeb;
+    margin: 0;
+    padding: 2px 0;
+}
+
+.menu {
+    margin-top: 50px;
+}
+
+.menu .col-sm-4{
+    margin-bottom: 10px;
+}
+
+h4 span {
+    text-transform: capitalize;
+}
+
+.main-color {
+    color: #5bc0de;
+}
+
+.btn-primary {
+    background-color: #885ead;
+}
+
+.btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary, .btn-primary:hover ,.btn-primary:active:hover, .btn-primary.active:hover, .open>.dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open>.dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open>.dropdown-toggle.btn-primary.focus {
+    background-color: #7647a2;
+}
+
+.random-bg {
+    background-color: #885ead;
+}
+
+.static-bg {
+    background-color: #5cb85c;
+}
+
+.math-bg {
+    background-color: #f0ad4e;
+}
+
+.random-color {
+    color: #aa8cc5;
+}
+
+.static-color {
+    color: #5cb85c;
+}
+
+.math-color {
+    color: #f0ad4e;
+}
+
+input[type=text] {
+    display: block;
+    width: 100%;
+    font-size: 15px;
+    line-height: 1.42857143;
+    color: #fff;
+    padding: 4px 0 4px 6px;
+    background-color: #485563;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+form>div{
+    margin-bottom: 15px;
+}
+
+.panel-danger>.panel-heading  {
+    background-color: #885ead;
+}
+
+.lotto-form>div>input[type=text]{
+    border-bottom: 2px solid #FFFF33;
+}
+
+.plus-form>div>input[type=text]{
+    border-bottom: 2px solid #337AB7;
+}
+
+footer a {
+    text-transform: uppercase;
+}
+
+footer a:hover, footer a:focus {
+    color: #b8d6df;
+    text-decoration: none;
+}

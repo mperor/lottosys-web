@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title th:text="#{index.title}"></title>
+
+        <!-- CSS -->
+        <link href="../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet"/>
+        <link href="../static/css/main.css" th:href="@{css/main.css}" rel="stylesheet"/>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="page-header text-center">
+                <h1 class="text-info" th:text="#{index.title}"></h1>
+                <h4><span th:classappend="${colorClass}" th:text="${name}"></span> System</h4>
+            </div>
+
+            <div class="row" style="padding-top:20px;">
+                <div class="col-sm-8">
+                    <div class="panel panel-default text-center">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" th:text="#{index.statement.header}"></h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr th:each="s : ${statements}">
+
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l1)} ? bingo : lotto" th:text="${s.l1}"></td>
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l2)} ? bingo : lotto" th:text="${s.l2}"></td>
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l3)} ? bingo : lotto" th:text="${s.l3}"></td>
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l4)} ? bingo : lotto" th:text="${s.l4}"></td>
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l5)} ? bingo : lotto" th:text="${s.l5}"></td>
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l6)} ? bingo : lotto" th:text="${s.l6}"></td>
+
+                                        <td th:text="${s.date}"></td>
+
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p1)} ? bingo : plus" th:text="${s.p1}"></td>
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p2)} ? bingo : plus" th:text="${s.p2}"></td>
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p3)} ? bingo : plus" th:text="${s.p3}"></td>
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p4)} ? bingo : plus" th:text="${s.p4}"></td>
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p5)} ? bingo : plus" th:text="${s.p5}"></td>
+                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p6)} ? bingo : plus" th:text="${s.p6}"></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="panel panel-default text-center">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" th:text="#{index.random.header}"></h3>
+                        </div>
+                        <table class="table table-condensed">
+                            <tbody th:classappend="${backgroundClass}">
+                                <tr th:each="t : ${tickets}">
+                                    <td th:text="${t.n1}"></td>
+                                    <td th:text="${t.n2}"></td>
+                                    <td th:text="${t.n3}"></td>
+                                    <td th:text="${t.n4}"></td>
+                                    <td th:text="${t.n5}"></td>
+                                    <td th:text="${t.n6}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-info" href="/">Home</a>
+            <a class="btn btn-success" th:href="${statsRef}" >Stats</a>
+            <a class="btn btn-warning" href="/add">Admin Panel</a>
+        </div>
+
+        <footer class="text-center text-info" >
+            <p>
+                <a class="random-color" href="/random">Random</a>
+                <a class="static-color" href="/static">Static</a>
+                <a class="math-color" href="/math">Math</a>
+            </p>
+            <p th:text="#{footer.msg} + ${year}"></p>
+        </footer>
+
+        <!-- PLUGINS -->
+        <script src="../static/js/jquery-1.11.3.min.js" th:src="@{js/jquery-1.11.3.min.js}"></script>
+        <script src="../static/js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
+    </body>
+</html>
