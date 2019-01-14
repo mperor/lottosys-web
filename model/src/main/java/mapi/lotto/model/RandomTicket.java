@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-@Table(name = "random_ticket", schema = "lotto")
+@Table(name = "random_ticket")
 public class RandomTicket implements Ticket {
 
     @Id

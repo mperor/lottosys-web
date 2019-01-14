@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import mapi.lotto.util.Tickets;
 
 @Entity
-@Table(name = "lotto_plus_statement", schema = "lotto")
+@Table(name = "lotto_plus_statement")
 public class LottoPlusStatement {
 
     @Id

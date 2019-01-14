@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "static_ticket", schema = "lotto")
+@Table(name = "static_ticket")
 public class StaticTicket implements Ticket {
 
     @Id
