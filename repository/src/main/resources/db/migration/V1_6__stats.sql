@@ -9,7 +9,7 @@ CREATE TABLE stats (
     l5 INT NOT NULL,
     l6 INT NOT NULL,
     l_all INT NOT NULL,
-    l_acc DOUBLE NOT NULL,
+    l_acc DOUBLE PRECISION NOT NULL,
     l_bank INT NOT NULL,
     p0 INT NOT NULL,
     p1 INT NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE stats (
     p4 INT NOT NULL,
     p5 INT NOT NULL,
     p6 INT NOT NULL,
-    p_acc DOUBLE NOT NULL,
+    p_acc DOUBLE PRECISION NOT NULL,
     p_bank INT NOT NULL,
     ticket_ordinal INT NOT NULL,
     PRIMARY KEY (id)
