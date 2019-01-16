@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import mapi.lotto.util.Tickets;
 
@@ -15,7 +16,7 @@ import mapi.lotto.util.Tickets;
 public class LottoPlusStatement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "lps_id", nullable = false, unique = true)
     private long lpsId;
 
@@ -63,7 +64,6 @@ public class LottoPlusStatement {
     @JoinColumn(name = "lps_id", nullable = true)
     private RandomTicket randomTicket;
      */
-    
     @OneToOne(mappedBy = "lottoPlusStatement")
     private RandomTicket randomTicket;
 
