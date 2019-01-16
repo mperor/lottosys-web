@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class StaticTicket implements Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "static_ticket_id", nullable = false, unique = true)
     private long staticTicketId;
 

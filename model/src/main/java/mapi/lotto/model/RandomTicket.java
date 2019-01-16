@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 public class RandomTicket implements Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "random_ticket_id", nullable = false, unique = true)
     private long randomTicketId;
 
