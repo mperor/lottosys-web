@@ -148,7 +148,7 @@ public class LottoServiceImpl implements LottoService {
 
     @Override
     public List<LottoPlusStatement> getLottoPlusStatements(Date from, Date to) {
-	return statementRepository.findByDateBetween(from, to);
+	return statementRepository.findByDateBetweenOrderByDate(from, to);
     }
 
     @Override

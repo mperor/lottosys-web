@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StatementRepository extends CrudRepository<LottoPlusStatement, Long> {
 
-    List<LottoPlusStatement> findByDateBetween(Date from, Date to);
+    List<LottoPlusStatement> findByDateBetweenOrderByDate(Date from, Date to);
 
     LottoPlusStatement findTopByDate(Date date);
 
