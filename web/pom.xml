@@ -44,28 +44,7 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
-    
-    <profiles>
-        <profile>
-            <id>dev</id>
-   
-            <properties>
-                <profile.name>dev</profile.name>
-            </properties>
-        </profile>
-        
-        <profile>
-            <id>prod</id>
-            
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <profile.name>prod</profile.name>
-            </properties>
-        </profile>
-    </profiles>
-    
+
     <build>
         <plugins>
             <plugin>
