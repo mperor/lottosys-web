@@ -304,7 +304,7 @@ public class LottoServiceImpl implements LottoService {
 	final int lastYear = LottoUtil.getCurrentYear() - 1;
 	Tickets t = Tickets.fromString(name);
 	int ticketOrdinal = t.ordinal();
-	if (statRepository.findTopByYearAndTicketOrdinal((short) lastYear, ticketOrdinal) == null) {
+	if (statRepository.findTopByStatYearAndTicketOrdinal((short) lastYear, ticketOrdinal) == null) {
 	    updateStat(name, lastYear);
 	}
 	return statRepository.findByTicketOrdinal(ticketOrdinal);

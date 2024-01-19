@@ -1,23 +1,18 @@
 package mapi.lotto.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "stats")
 public class Stat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private long id;
 
     @Column
-    private Short year;
+    private Short statYear;
 
     @Column
     private int p0;
@@ -83,7 +78,7 @@ public class Stat {
     }
 
     protected Stat(Short year, double pACC, int pBank, int lAll, double lACC, int lBank) {
-	this.year = year;
+	this.statYear = year;
 	this.pACC = pACC;
 	this.pBank = pBank;
 	this.lAll = lAll;
@@ -92,7 +87,7 @@ public class Stat {
     }
 
     protected Stat(Short year, double pACC, int pBank, int lAll, double lACC, int lBank, int ticketNumber) {
-	this.year = year;
+	this.statYear = year;
 	this.pACC = pACC;
 	this.pBank = pBank;
 	this.lAll = lAll;
@@ -150,11 +145,11 @@ public class Stat {
     }
 
     public Short getYear() {
-	return year;
+	return statYear;
     }
 
     public void setYear(Short year) {
-	this.year = year;
+	this.statYear = year;
     }
 
     public int getP0() {
