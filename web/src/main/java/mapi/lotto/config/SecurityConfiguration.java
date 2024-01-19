@@ -1,36 +1,64 @@
 package mapi.lotto.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+
+import static jakarta.servlet.DispatcherType.ERROR;
+import static jakarta.servlet.DispatcherType.FORWARD;
 
 @Configuration
-//@Order(SecurityProperties.IGNORED_ORDER)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity
+public class SecurityConfiguration {
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
-        builder.inMemoryAuthentication()
-                .withUser("marfik007").password("adidas007").roles("ADMIN").and();
+    private final SecurityProperties securityProperties;
+
+    public SecurityConfiguration(SecurityProperties securityProperties) {
+        this.securityProperties = securityProperties;
     }
 
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers("/").permitAll().and()
-		.authorizeRequests().antMatchers("/random").permitAll().and()
-		.authorizeRequests().antMatchers("/static").permitAll().and()
-		.authorizeRequests().antMatchers("/math").permitAll().and()
-		.authorizeRequests().antMatchers("/math-stats").permitAll().and()
-		.authorizeRequests().antMatchers("/static-stats").permitAll().and()
-		.authorizeRequests().antMatchers("/random-stats").permitAll().and()
-  //              .authorizeRequests().antMatchers("/add/**").hasRole("ADMIN").and()
-                .authorizeRequests().anyRequest().authenticated().and()
-                .formLogin().loginPage("/login").permitAll().and()
-                .httpBasic();
-        httpSecurity.csrf().disable();
-        httpSecurity.headers().frameOptions().disable();
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService() {
+        UserDetails user = User.builder()
+                .username(securityProperties.getUser().getName())
+                .password(passwordEncoder().encode(securityProperties.getUser().getPassword()))
+                .roles("ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(user);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(auth -> auth
+                        .dispatcherTypeMatchers(FORWARD, ERROR).permitAll()
+                        .requestMatchers("/css/**", "/js/**").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/random", "/static", "/math").permitAll()
+                        .requestMatchers("/math-stats", "/static-stats", "/random-stats").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
+                .logout(logout -> logout.permitAll())
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
+                .csrf(csrf -> csrf.disable());
+
+        return http.build();
     }
 
 }

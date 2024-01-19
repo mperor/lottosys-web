@@ -3,21 +3,14 @@ package mapi.lotto.model;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "static_ticket")
 public class StaticTicket implements Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "static_ticket_id", nullable = false, unique = true)
     private long staticTicketId;
 

@@ -1,7 +1,8 @@
 package mapi.lotto.controller;
 
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+
+import jakarta.servlet.http.HttpServletRequest;
 import mapi.lotto.model.LottoPlusStatement;
 import mapi.lotto.model.Stat;
 import mapi.lotto.model.Ticket;
