@@ -594,8 +594,4 @@ INSERT INTO stats VALUES
 (2, 2018, 59, 53, 24, 3, 0, 0, 0, 139, 0.02158273381294964, -345, 60, 58, 18, 3, 0, 0, 0, 0.02158273381294964, -109, 1),
 (3, 2018, 66, 55, 17, 1, 0, 0, 0, 139, 0.007194244604316547, -393, 61, 53, 21, 4, 0, 0, 0, 0.02877697841726619, -99, 0);
 
-ALTER TABLE lotto_plus_statement ALTER COLUMN lps_id RESTART WITH (SELECT MAX(lps_id) FROM lotto_plus_statement) + 1;
-ALTER TABLE random_ticket ALTER COLUMN random_ticket_id RESTART WITH (SELECT MAX(random_ticket_id) FROM random_ticket) + 1;
-ALTER TABLE math_ticket ALTER COLUMN math_ticket_id RESTART WITH (SELECT MAX(math_ticket_id) FROM math_ticket) + 1;
-ALTER TABLE static_ticket ALTER COLUMN static_ticket_id RESTART WITH (SELECT MAX(static_ticket_id) FROM static_ticket) + 1;
-ALTER TABLE stats ALTER COLUMN id RESTART WITH (SELECT MAX(id) FROM stats) + 1;
+
