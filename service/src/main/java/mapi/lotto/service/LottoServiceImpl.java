@@ -1,6 +1,5 @@
 package mapi.lotto.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import mapi.lotto.model.LottoPlusStatement;
 import mapi.lotto.model.RandomTicket;
@@ -32,22 +31,21 @@ public class LottoServiceImpl implements LottoService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LottoServiceImpl.class);
 
-    @Autowired
-    private StatementRepository statementRepository;
+	private final StatementRepository statementRepository;
+	private final RandomTicketRepository randomTicketRepository;
+	private final StaticTicketRepository staticTicketRepository;
+	private final MathTicketRepository mathTicketRepository;
+    private final StatRepository statRepository;
 
-    @Autowired
-    private RandomTicketRepository randomTicketRepository;
+	public LottoServiceImpl(StatementRepository statementRepository, RandomTicketRepository randomTicketRepository, StaticTicketRepository staticTicketRepository, MathTicketRepository mathTicketRepository, StatRepository statRepository) {
+		this.statementRepository = statementRepository;
+		this.randomTicketRepository = randomTicketRepository;
+		this.staticTicketRepository = staticTicketRepository;
+		this.mathTicketRepository = mathTicketRepository;
+		this.statRepository = statRepository;
+	}
 
-    @Autowired
-    private StaticTicketRepository staticTicketRepository;
-
-    @Autowired
-    private MathTicketRepository mathTicketRepository;
-
-    @Autowired
-    private StatRepository statRepository;
-
-    @Override
+	@Override
     public Iterable<LottoPlusStatement> getStatements() {
 	return statementRepository.findAll();
     }
