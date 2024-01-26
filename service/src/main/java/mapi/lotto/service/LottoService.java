@@ -5,13 +5,10 @@ import java.util.List;
 import mapi.lotto.model.LottoPlusStatement;
 import mapi.lotto.model.MathTicket;
 import mapi.lotto.model.RandomTicket;
-import mapi.lotto.model.Stat;
 import mapi.lotto.model.StaticTicket;
 import mapi.lotto.model.Ticket;
 
 public interface LottoService {
-
-    Stat getDynamicStatByTicketName(String name);
 
     MathTicket getFreeMathTicket();
 
@@ -32,8 +29,6 @@ public interface LottoService {
     Iterable<RandomTicket> getRandomTickets();
 
     Iterable<LottoPlusStatement> getStatements();
-
-    List<Stat> getStaticStatsByTicketName(String name);
 
     Iterable<StaticTicket> getStaticTickets();
 

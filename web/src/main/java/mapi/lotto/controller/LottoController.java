@@ -7,6 +7,7 @@ import mapi.lotto.model.LottoPlusStatement;
 import mapi.lotto.model.Stat;
 import mapi.lotto.model.Ticket;
 import mapi.lotto.service.LottoService;
+import mapi.lotto.service.StatisticsService;
 import mapi.lotto.util.LottoUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class LottoController {
 
     @Autowired
     private LottoService lottoService;
+	@Autowired
+	private StatisticsService statisticsService;
 
     @RequestMapping("/")
     public ModelAndView getIndexSite() {
@@ -56,9 +59,9 @@ public class LottoController {
 	String colorClass = name + "-color";
 	String backgroundClass = name + "-bg";
 
-	List<Stat> stats = lottoService.getStaticStatsByTicketName(name);
-	if (lottoService.getDynamicStatByTicketName(name) != null) {
-	    stats.add(lottoService.getDynamicStatByTicketName(name));
+	List<Stat> stats = statisticsService.getStaticStatsByTicketName(name);
+	if (statisticsService.getDynamicStatByTicketName(name) != null) {
+	    stats.add(statisticsService.getDynamicStatByTicketName(name));
 	}
 	ModelAndView mav = new ModelAndView("stats");
 	mav.addObject("stats", stats);

@@ -31,7 +31,7 @@ class LottoServiceTest {
         when(staticRepository.findTopByLottoPlusStatement(null)).thenReturn(null);
         when(mathRepository.findTopByLottoPlusStatement(null)).thenReturn(null);
         // system under test
-        LottoService lottoService = new LottoServiceImpl(statementRepository, randomRepository, staticRepository, mathRepository, null);
+        LottoService lottoService = new LottoServiceImpl(statementRepository, randomRepository, staticRepository, mathRepository);
         // when
         List<Ticket> randomResult = lottoService.getThisYearTickets("random");
         List<Ticket> staticResult = lottoService.getThisYearTickets("static");
@@ -66,7 +66,7 @@ class LottoServiceTest {
         when(staticRepository.findTopByLottoPlusStatement(null)).thenReturn(new StaticTicket(41, 42, 43, 44, 45, 46));
         when(mathRepository.findTopByLottoPlusStatement(null)).thenReturn(new MathTicket(42, 43, 44, 45, 46, 47));
         // system under test
-        LottoService lottoService = new LottoServiceImpl(statementRepository, randomRepository, staticRepository, mathRepository, null);
+        LottoService lottoService = new LottoServiceImpl(statementRepository, randomRepository, staticRepository, mathRepository);
         // when
         List<Ticket> randomResult = lottoService.getThisYearTickets("random");
         List<Ticket> staticResult = lottoService.getThisYearTickets("static");
@@ -128,7 +128,7 @@ class LottoServiceTest {
                         new StaticTicket(12, 22, 32, 42, 45, 46),
                         new MathTicket(13, 23, 33, 43, 45, 46)
                 )));
-        LottoService lottoService = new LottoServiceImpl(statementRepository, null, null, null, null);
+        LottoService lottoService = new LottoServiceImpl(statementRepository, null, null, null);
         List<LottoPlusStatement> statementResult = lottoService.getThisYearStatements();
         assertThat(statementResult)
                 .map(LottoPlusStatement::getDate)
@@ -150,7 +150,7 @@ class LottoServiceTest {
         MathTicket mathTicket = new MathTicket(1, 2, 3, 4, 5, 6);
         when(mathRepository.findAll()).thenReturn(List.of(mathTicket));
 
-        LottoService lottoService = new LottoServiceImpl(null, randomRepository, staticRepository, mathRepository, null);
+        LottoService lottoService = new LottoServiceImpl(null, randomRepository, staticRepository, mathRepository);
         assertThat(lottoService.getTickets("random")).anyMatch(randomTicket::equals);
         assertThat(lottoService.getTickets("static")).anyMatch(staticTicket::equals);
         assertThat(lottoService.getTickets("math")).anyMatch(mathTicket::equals);
@@ -158,7 +158,7 @@ class LottoServiceTest {
 
     @Test
     void saveTicket_incorrectInput_returnsFalse() {
-        LottoService lottoService = new LottoServiceImpl(null, null, null, null, null);
+        LottoService lottoService = new LottoServiceImpl(null, null, null, null);
         // too few numbers
         assertThat(lottoService.saveTicket("random", new int[]{})).isFalse();
         // too many numbers
@@ -180,7 +180,7 @@ class LottoServiceTest {
         var mathRepository = mock(MathTicketRepository.class);
         when(mathRepository.save(any())).thenAnswer(in -> in.getArgument(0));
 
-        LottoService lottoService = new LottoServiceImpl(null, randomRepository, staticRepository, mathRepository, null);
+        LottoService lottoService = new LottoServiceImpl(null, randomRepository, staticRepository, mathRepository);
         assertThat(lottoService.saveTicket("random", new int[]{11, 12, 13, 14, 15, 16})).isTrue();
         assertThat(lottoService.saveTicket("static", new int[]{21, 22, 23, 24, 25, 26})).isTrue();
         assertThat(lottoService.saveTicket("math", new int[]{31, 32, 33, 34, 35, 36})).isTrue();
@@ -199,7 +199,7 @@ class LottoServiceTest {
         );
         when(statementRepository.findTopByOrderByDateDesc()).thenReturn(lastDrawStatement);
 
-        LottoService lottoService = new LottoServiceImpl(statementRepository, null, null, null, null);
+        LottoService lottoService = new LottoServiceImpl(statementRepository, null, null, null);
         int[] correctLottoNumbers = {1, 2, 3, 4, 5, 6};
         int[] correctPlusNumbers = {1, 2, 3, 4, 5, 6};
 
@@ -233,7 +233,7 @@ class LottoServiceTest {
         var mathRepository = mock(MathTicketRepository.class);
         when(mathRepository.findTopByOrderByMathTicketIdDesc()).thenReturn(new MathTicket(1, 2, 3, 4, 5, 6));
 
-        LottoService lottoService = new LottoServiceImpl(statementRepository, randomRepository, staticRepository, mathRepository, null);
+        LottoService lottoService = new LottoServiceImpl(statementRepository, randomRepository, staticRepository, mathRepository);
         String correctDate = "2024-01-02";
         int[] correctLottoNumbers = {1, 2, 3, 4, 5, 6};
         int[] correctPlusNumbers = {1, 2, 3, 4, 5, 6};
@@ -269,7 +269,7 @@ class LottoServiceTest {
         var staticRepository = mock(StaticTicketRepository.class);
         var mathRepository = mock(MathTicketRepository.class);
 
-        LottoService lottoService = new LottoServiceImpl(statementRepository, randomRepository, staticRepository, mathRepository, null);
+        LottoService lottoService = new LottoServiceImpl(statementRepository, randomRepository, staticRepository, mathRepository);
 
         when(randomRepository.findTopByOrderByRandomTicketIdDesc()).thenReturn(null);
         when(staticRepository.findTopByOrderByStaticTicketIdDesc()).thenReturn(null);
@@ -312,7 +312,7 @@ class LottoServiceTest {
         var mathRepository = mock(MathTicketRepository.class);
         when(mathRepository.findTopByOrderByMathTicketIdDesc()).thenReturn(new MathTicket(1, 2, 3, 4, 5, 6));
 
-        LottoService lottoService = new LottoServiceImpl(statementRepository, randomRepository, staticRepository, mathRepository, null);
+        LottoService lottoService = new LottoServiceImpl(statementRepository, randomRepository, staticRepository, mathRepository);
         assertThat(lottoService.saveStatement(new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, 2, 3, 4, 5, 6}, "2024-01-01")).isTrue();
     }
 
