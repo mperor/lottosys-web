@@ -1,5 +1,6 @@
 package mapi.lotto.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,15 +16,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import static jakarta.servlet.DispatcherType.ERROR;
 import static jakarta.servlet.DispatcherType.FORWARD;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
     private final SecurityProperties securityProperties;
-
-    public SecurityConfiguration(SecurityProperties securityProperties) {
-        this.securityProperties = securityProperties;
-    }
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {

@@ -21,6 +21,10 @@
                 <h4><span th:classappend="${colorClass}" th:text="${name}"></span> System</h4>
             </div>
 
+            <div class="btn-group">
+                <a th:each="lotteryYear : ${lotteryYears}" th:href="@{/{name}(name=${name},year=${lotteryYear})}" th:classappend="${lotteryYear.equals(selectedYear)} ? btn-info : btn-default" class="btn" th:text="${lotteryYear}"></a>
+            </div>
+
             <div class="row" style="padding-top:20px;">
                 <div class="col-sm-8">
                     <div class="panel panel-default text-center">
@@ -30,23 +34,23 @@
                         <div class="table-responsive">
                             <table class="table table-condensed">
                                 <tbody>
-                                    <tr th:each="s : ${statements}">
+                                    <tr th:if="${ticket.lotteryResult != null}" th:each="ticket : ${tickets}" >
 
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l1)} ? bingo : lotto" th:text="${s.l1}"></td>
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l2)} ? bingo : lotto" th:text="${s.l2}"></td>
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l3)} ? bingo : lotto" th:text="${s.l3}"></td>
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l4)} ? bingo : lotto" th:text="${s.l4}"></td>
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l5)} ? bingo : lotto" th:text="${s.l5}"></td>
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.l6)} ? bingo : lotto" th:text="${s.l6}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.lottoNumbers.l1)} ? bingo : lotto" th:text="${ticket.lotteryResult.lottoNumbers.l1}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.lottoNumbers.l2)} ? bingo : lotto" th:text="${ticket.lotteryResult.lottoNumbers.l2}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.lottoNumbers.l3)} ? bingo : lotto" th:text="${ticket.lotteryResult.lottoNumbers.l3}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.lottoNumbers.l4)} ? bingo : lotto" th:text="${ticket.lotteryResult.lottoNumbers.l4}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.lottoNumbers.l5)} ? bingo : lotto" th:text="${ticket.lotteryResult.lottoNumbers.l5}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.lottoNumbers.l6)} ? bingo : lotto" th:text="${ticket.lotteryResult.lottoNumbers.l6}"></td>
 
-                                        <td th:text="${s.date}"></td>
+                                        <td th:text="${ticket.lotteryResult.lotteryDate}"></td>
 
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p1)} ? bingo : plus" th:text="${s.p1}"></td>
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p2)} ? bingo : plus" th:text="${s.p2}"></td>
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p3)} ? bingo : plus" th:text="${s.p3}"></td>
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p4)} ? bingo : plus" th:text="${s.p4}"></td>
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p5)} ? bingo : plus" th:text="${s.p5}"></td>
-                                        <td th:classappend="${s.getTicket(name).ticketSet.contains(s.p6)} ? bingo : plus" th:text="${s.p6}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.plusNumbers.p1)} ? bingo : plus" th:text="${ticket.lotteryResult.plusNumbers.p1}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.plusNumbers.p2)} ? bingo : plus" th:text="${ticket.lotteryResult.plusNumbers.p2}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.plusNumbers.p3)} ? bingo : plus" th:text="${ticket.lotteryResult.plusNumbers.p3}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.plusNumbers.p4)} ? bingo : plus" th:text="${ticket.lotteryResult.plusNumbers.p4}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.plusNumbers.p5)} ? bingo : plus" th:text="${ticket.lotteryResult.plusNumbers.p5}"></td>
+                                        <td th:classappend="${ticket.ticketNumbers.containNumber(ticket.lotteryResult.plusNumbers.p6)} ? bingo : plus" th:text="${ticket.lotteryResult.plusNumbers.p6}"></td>
 
                                     </tr>
                                 </tbody>
@@ -62,22 +66,24 @@
                         </div>
                         <table class="table table-condensed">
                             <tbody th:classappend="${backgroundClass}">
-                                <tr th:each="t : ${tickets}">
-                                    <td th:text="${t.n1}"></td>
-                                    <td th:text="${t.n2}"></td>
-                                    <td th:text="${t.n3}"></td>
-                                    <td th:text="${t.n4}"></td>
-                                    <td th:text="${t.n5}"></td>
-                                    <td th:text="${t.n6}"></td>
+                                <tr th:each="ticket : ${tickets}">
+                                    <td th:text="${ticket.ticketNumbers.n1}"></td>
+                                    <td th:text="${ticket.ticketNumbers.n2}"></td>
+                                    <td th:text="${ticket.ticketNumbers.n3}"></td>
+                                    <td th:text="${ticket.ticketNumbers.n4}"></td>
+                                    <td th:text="${ticket.ticketNumbers.n5}"></td>
+                                    <td th:text="${ticket.ticketNumbers.n6}"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <a class="btn btn-info" href="/">Home</a>
-            <a class="btn btn-success" th:href="${statsRef}" >Stats</a>
-            <a class="btn btn-warning" href="/add">Admin Panel</a>
+            <div class="btn-group">
+                <a class="btn btn-default" href="/">Home</a>
+                <a class="btn btn-default" th:href="${statsRef}" >Stats</a>
+                <a class="btn btn-default" href="/add">Admin Panel</a>
+            </div>
         </div>
 
         <footer class="text-center text-info" >
