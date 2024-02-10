@@ -1,5 +1,6 @@
 package mapi.lotto.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import mapi.lotto.model.LotteryNumbersException;
 import mapi.lotto.model.result.LottoNumbers;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.List;
@@ -24,11 +26,6 @@ public class LottoController {
     private final LotteryService lotteryService;
     private final StatisticService statisticService;
 
-    @GetMapping
-    public String showWelcomePage() {
-        return "index";
-    }
-
     @GetMapping("/add")
     public String add() {
         return "add";
@@ -39,11 +36,18 @@ public class LottoController {
         return "login";
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/logout")
+    public String logout(Model model, Principal principal) {
+        model.addAttribute("username", principal.getName());
+        return "logout";
+    }
+
+    @GetMapping(value = {"/random", "/math", "/static"})
     public String showSystem(Model model,
-                             @PathVariable("name") String name,
+                             HttpServletRequest request,
                              @RequestParam(required = false) Integer year) {
 
+        String name = request.getServletPath().replace("/", "");
         List<LotteryTicket> tickets = year == null
                 ? lotteryService.getCurrentYearAndNewTickets(name)
                 : lotteryService.getTicketsOfYear(name, Year.of(year));

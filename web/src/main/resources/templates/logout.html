@@ -7,7 +7,7 @@
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title th:text="#{login.title}"></title>
+        <title th:text="#{logout.title}"></title>
 
         <!-- CSS -->
         <link href="../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet"/>
@@ -28,22 +28,12 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <div class="well">
-                        <form class="form-signing" method="POST" th:action="@{/login}">
-                            <p class="form-signing-heading lead" th:text="#{login.title}"></p>
-                            <label for="inputUser" class="sr-only">User</label>
-                            <input name="username" type="text" id="inputUser" placeholder="User" class="form-control" required=""/>
+                        <form class="form-signing" method="POST" th:action="@{/logout}">
+                            <p class="form-signing-heading lead" th:text="#{logout.title}"></p>
+                            <p>Are you sure you want to log out?</p>
+                            <p>Logged user: <u th:text="${username}"></u></p>
                             <div class="space"></div>
-                            <label for="inputPassword" class="sr-only">Password</label>
-                            <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required=""/>
-                            <div class="space"></div>
-                            <!--
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="remember-me"> Remember me
-                                </label>
-                            </div> 
-                            -->
-                            <button id="btn-login" class="btn btn-info btn-block" type="submit" value="Login">SEND</button>
+                            <button id="btn-login" class="btn btn-info btn-block" type="submit" value="Login">LOGOUT</button>
                         </form>
                     </div>
                 </div>
