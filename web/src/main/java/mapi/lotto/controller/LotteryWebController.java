@@ -21,7 +21,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
-public class LottoController {
+public class LotteryWebController {
 
     private final LotteryService lotteryService;
     private final StatisticService statisticService;

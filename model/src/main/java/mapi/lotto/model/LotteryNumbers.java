@@ -8,7 +8,7 @@ public abstract class LotteryNumbers implements Iterable<Integer> {
 
     public static final Validations.Range LOTTERY_NUMBERS_RANGE = new Validations.Range(1, 49);
 
-    public LotteryNumbers() {
+    protected LotteryNumbers() {
     }
 
     protected LotteryNumbers(int n1, int n2, int n3, int n4, int n5, int n6) {

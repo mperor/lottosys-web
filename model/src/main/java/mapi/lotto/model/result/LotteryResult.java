@@ -1,12 +1,11 @@
 package mapi.lotto.model.result;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import mapi.lotto.model.ticket.LotteryTicket;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -14,6 +13,7 @@ import java.util.Set;
 public class LotteryResult {
 
     @Id
+    @Getter(AccessLevel.PACKAGE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private LocalDate lotteryDate;
@@ -21,8 +21,6 @@ public class LotteryResult {
     private LottoNumbers lottoNumbers = new LottoNumbers();
     @Embedded
     private PlusNumbers plusNumbers = new PlusNumbers();
-    @OneToMany(mappedBy = "lotteryResult")
-    private Set<LotteryTicket> tickets;
 
     protected LotteryResult() {
     }
