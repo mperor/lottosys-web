@@ -20,6 +20,8 @@ public class LotteryResultUpdater {
         try {
             var result = lotteryResultClient.downloadLastLotteryResult();
             boolean saved = lotteryService.saveNewResultAndBindNewTickets(result.getLottoNumbers(), result.getPlusNumbers(), result.getLotteryDate());
+            if (saved)
+                lotteryService.generateNewTickets();
             log.info("Update lottery results => saved={}!", saved);
         } catch (Exception exception) {
             log.error("Lottery results update failed!", exception);

@@ -26,6 +26,7 @@ public interface LotteryTicketRepository extends CrudRepository<LotteryTicket, L
             "ORDER BY t.lotteryResult.lotteryDate ASC")
     List<LotteryTicket> findAllByTicketTypeAndLotteryResult_LotteryDateBetween(String ticketType, LocalDate from, LocalDate to);
 
-    Optional<LotteryTicket> findTop1ByTicketTypeOrderByLotteryResultLotteryDateAsc(String ticketType);
+    Optional<LotteryTicket> findTop1ByTicketTypeAndLotteryResultLotteryDateNotNullOrderByLotteryResultLotteryDateAsc(String ticketType);
 
+    Optional<LotteryTicket> findTop1ByTicketTypeOrderByLotteryResultLotteryDateDesc(String ticketType);
 }
