@@ -23,10 +23,10 @@
                 <h4><span th:classappend="${colorClass}" th:text="${name}"></span> System</h4>
             </div>
 
-            <div th:if="${not stats.isEmpty()}" style="padding-top:20px;">
-                <div th:each="stat : ${stats}" class="panel">
+            <div th:if="${not lotteryStatistics.isEmpty()}" style="padding-top:20px;">
+                <div th:each="lotteryStatistic : ${lotteryStatistics}" class="panel">
                     <div class="panel-heading" th:classappend="${backgroundClass}">
-                        <h3 class="panel-title" th:text="${stat.year}"></h3>
+                        <h3 class="panel-title" th:text="${lotteryStatistic.lotteryYear}"></h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -34,67 +34,67 @@
                                 <div class="row text-center">
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto lotto">
-                                            <h4 th:text="${stat.l0}"></h4>
+                                            <h4 th:text="${lotteryStatistic.lottoHits.l0}"></h4>
                                             <h5 class="panel-danger">0/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto lotto">
-                                            <h4 th:text="${stat.l1}"></h4>
+                                            <h4 th:text="${lotteryStatistic.lottoHits.l1}"></h4>
                                             <h5 class="panel-danger">1/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto lotto">
-                                            <h4 th:text="${stat.l2}"></h4>
+                                            <h4 th:text="${lotteryStatistic.lottoHits.l2}"></h4>
                                             <h5 class="panel-danger">2/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto lotto">
-                                            <h4 th:text="${stat.l3}"></h4>
+                                            <h4 th:text="${lotteryStatistic.lottoHits.l3}"></h4>
                                             <h5 class="panel-danger">3/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto lotto">
-                                            <h4 th:text="${stat.l4}"></h4>
+                                            <h4 th:text="${lotteryStatistic.lottoHits.l4}"></h4>
                                             <h5 class="panel-danger">4/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto lotto">
-                                            <h4 th:text="${stat.l5}"></h4>
+                                            <h4 th:text="${lotteryStatistic.lottoHits.l5}"></h4>
                                             <h5 class="panel-danger">5/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto lotto">
-                                            <h4 th:text="${stat.l6}"></h4>
+                                            <h4 th:text="${lotteryStatistic.lottoHits.l6}"></h4>
                                             <h5 class="panel-danger">6/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto lotto">
-                                            <h4 th:text="${stat.lAll}"></h4>
+                                            <h4 th:text="${lotteryStatistic.lotteryAll}"></h4>
                                             <h5 class="panel-danger">All</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-xs-3">
                                         <div class="panel-lotto" th:classappend="${backgroundClass}">
-                                            <h4 th:text="${#numbers.formatDecimal(stat.lACC * 100, 0, 2)}"></h4>
+                                            <h4 th:text="${#numbers.formatDecimal(lotteryStatistic.lottoHits.lACC * 100, 1, 'DEFAULT', 2, 'DEFAULT')}"></h4>
                                             <h5 class="panel-danger">ACC[%]</h5>
                                         </div>
                                     </div>
-                                    <div th:if="${stat.lBank &gt;= 0}" class="col-sm-4 col-xs-3">
+                                    <div th:if="${lotteryStatistic.lottoHits.lBank &gt;= 0}" class="col-sm-4 col-xs-3">
                                         <div class="panel-lotto alert-success">
-                                            <h4 th:text="${stat.lBank}"></h4>
+                                            <h4 th:text="${lotteryStatistic.lottoHits.lBank}"></h4>
                                             <h5 class="panel-danger">BANK</h5>
                                         </div>
                                     </div>
-                                    <div th:if="${stat.lBank &lt; 0}" class="col-sm-4 col-xs-3 col-xs-3">
+                                    <div th:if="${lotteryStatistic.lottoHits.lBank &lt; 0}" class="col-sm-4 col-xs-3 col-xs-3">
                                         <div class="panel-lotto alert-danger">
-                                            <h4 th:text="${stat.lBank}"></h4>
+                                            <h4 th:text="${lotteryStatistic.lottoHits.lBank}"></h4>
                                             <h5 class="panel-danger">BANK</h5>
                                         </div>
                                     </div>
@@ -105,67 +105,67 @@
                                 <div class="row text-center">
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto plus">
-                                            <h4 th:text="${stat.p0}"></h4>
+                                            <h4 th:text="${lotteryStatistic.plusHits.p0}"></h4>
                                             <h5 class="panel-danger">0/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto plus">
-                                            <h4 th:text="${stat.p1}"></h4>
+                                            <h4 th:text="${lotteryStatistic.plusHits.p1}"></h4>
                                             <h5 class="panel-danger">1/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto plus">
-                                            <h4 th:text="${stat.p2}"></h4>
+                                            <h4 th:text="${lotteryStatistic.plusHits.p2}"></h4>
                                             <h5 class="panel-danger">2/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto plus">
-                                            <h4 th:text="${stat.p3}"></h4>
+                                            <h4 th:text="${lotteryStatistic.plusHits.p3}"></h4>
                                             <h5 class="panel-danger">3/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto plus">
-                                            <h4 th:text="${stat.p4}"></h4>
+                                            <h4 th:text="${lotteryStatistic.plusHits.p4}"></h4>
                                             <h5 class="panel-danger">4/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto plus">
-                                            <h4 th:text="${stat.p5}"></h4>
+                                            <h4 th:text="${lotteryStatistic.plusHits.p5}"></h4>
                                             <h5 class="panel-danger">5/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto plus">
-                                            <h4 th:text="${stat.p6}"></h4>
+                                            <h4 th:text="${lotteryStatistic.plusHits.p6}"></h4>
                                             <h5 class="panel-danger">6/6</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-3">
                                         <div class="panel-lotto plus">
-                                            <h4 th:text="${stat.lAll}"></h4>
+                                            <h4 th:text="${lotteryStatistic.lotteryAll}"></h4>
                                             <h5 class="panel-danger">All</h5>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-xs-3">
                                         <div class="panel-lotto" th:classappend="${backgroundClass}">
-                                            <h4 th:text="${#numbers.formatDecimal(stat.pACC * 100, 0, 2)}"></h4>
+                                            <h4 th:text="${#numbers.formatDecimal(lotteryStatistic.plusHits.pACC * 100, 1, 'DEFAULT', 2, 'DEFAULT')}"></h4>
                                             <h5 class="panel-danger">ACC[%]</h5>
                                         </div>
                                     </div>
-                                    <div th:if="${stat.pBank &gt;= 0}" class="col-sm-4 col-xs-3">
+                                    <div th:if="${lotteryStatistic.plusHits.pBank &gt;= 0}" class="col-sm-4 col-xs-3">
                                         <div class="panel-lotto alert-success">
-                                            <h4 th:text="${stat.pBank}"></h4>
+                                            <h4 th:text="${lotteryStatistic.plusHits.pBank}"></h4>
                                             <h5 class="panel-danger">BANK</h5>
                                         </div>
                                     </div>
-                                    <div th:if="${stat.pBank &lt; 0}" class="col-sm-4 col-xs-3">
+                                    <div th:if="${lotteryStatistic.plusHits.pBank &lt; 0}" class="col-sm-4 col-xs-3">
                                         <div class="panel-lotto alert-danger">
-                                            <h4 th:text="${stat.pBank}"></h4>
+                                            <h4 th:text="${lotteryStatistic.plusHits.pBank}"></h4>
                                             <h5 class="panel-danger">BANK</h5>
                                         </div>
                                     </div>
