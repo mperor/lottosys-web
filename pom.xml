@@ -48,7 +48,6 @@
     <profiles>
         <profile>
             <id>dev</id>
-
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -58,10 +57,16 @@
         </profile>
 
         <profile>
-            <id>prod</id>
-
+            <id>prod-jar</id>
             <properties>
                 <profile.name>prod</profile.name>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod-war</id>
+            <properties>
+                <profile.name>prod,war</profile.name>
             </properties>
         </profile>
     </profiles>
