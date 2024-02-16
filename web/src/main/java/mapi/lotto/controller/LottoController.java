@@ -26,6 +26,11 @@ public class LottoController {
     private final LotteryService lotteryService;
     private final StatisticService statisticService;
 
+    @GetMapping
+    public String homePage() {
+        return "index";
+    }
+
     @GetMapping("/add")
     public String add() {
         return "add";
