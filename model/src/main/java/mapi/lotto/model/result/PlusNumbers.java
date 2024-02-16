@@ -1,5 +1,6 @@
 package mapi.lotto.model.result;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class PlusNumbers extends LotteryNumbers {
     private int p5;
     private int p6;
 
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public PlusNumbers(int p1, int p2, int p3, int p4, int p5, int p6) {
         super(p1, p2, p3, p4, p5, p6);
         this.p1 = p1;

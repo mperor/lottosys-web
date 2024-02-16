@@ -1,6 +1,7 @@
 package mapi.lotto.model.ticket;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import mapi.lotto.model.result.LotteryResult;
 @DiscriminatorColumn(name = "ticket_type")
 public class LotteryTicket {
 
+    @Getter(AccessLevel.PACKAGE)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
