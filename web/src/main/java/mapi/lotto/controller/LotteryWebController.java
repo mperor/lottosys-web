@@ -21,10 +21,15 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
-public class LottoController {
+public class LotteryWebController {
 
     private final LotteryService lotteryService;
     private final StatisticService statisticService;
+
+    @GetMapping
+    public String homePage() {
+        return "index";
+    }
 
     @GetMapping("/add")
     public String add() {

@@ -1,6 +1,7 @@
 package mapi.lotto.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mapi.lotto.model.result.LotteryResult;
 import mapi.lotto.model.statistic.LotteryStatistic;
 import mapi.lotto.model.statistic.LottoHits;
@@ -8,8 +9,6 @@ import mapi.lotto.model.statistic.PlusHits;
 import mapi.lotto.model.ticket.TicketNumbers;
 import mapi.lotto.repository.LotteryStatisticRepository;
 import mapi.lotto.util.TicketType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
@@ -19,11 +18,10 @@ import java.time.Year;
 import java.util.List;
 import java.util.stream.IntStream;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class StatisticServiceImpl implements StatisticService, ApplicationListener<ApplicationReadyEvent> {
-
-    private static final Logger logger = LoggerFactory.getLogger(StatisticServiceImpl.class);
 
     private final LotteryService lotteryService;
     private final LotteryStatisticRepository statisticRepository;
@@ -80,7 +78,7 @@ public class StatisticServiceImpl implements StatisticService, ApplicationListen
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        logger.info("Import static statistics => loading ...");
+        log.info("Generate static statistics => loading ...");
         for (TicketType type : TicketType.values()) {
             var now = Year.now().getValue();
             Integer latestYear = lotteryService.findLatestTicketByName(type.getName())
@@ -91,10 +89,10 @@ public class StatisticServiceImpl implements StatisticService, ApplicationListen
 
             if (latestYear < now) {
                 IntStream.range(latestYear, now)
-                        .peek(nextYear -> logger.info("Update {} from year {} !!!", type.getName(), nextYear))
+                        .peek(nextYear -> log.info("Update {} from year {} !!!", type.getName(), nextYear))
                         .forEach(nextYear -> updateStatisticOfYear(type.getName(), Year.of(nextYear)));
             }
         }
-        logger.info("Import static statistics => done!");
+        log.info("Generate static statistics => done!");
     }
 }

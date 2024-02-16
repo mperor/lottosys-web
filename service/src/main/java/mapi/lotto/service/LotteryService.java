@@ -24,4 +24,6 @@ public interface LotteryService {
     boolean saveNewResultAndBindNewTickets(LottoNumbers lottoNumbers, PlusNumbers plusNumbers, LocalDate date);
 
     Optional<LotteryTicket> findLatestTicketByName(String name);
+
+    void generateNewTickets();
 }

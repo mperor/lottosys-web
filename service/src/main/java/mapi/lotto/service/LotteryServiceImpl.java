@@ -1,6 +1,7 @@
 package mapi.lotto.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mapi.lotto.model.result.LotteryResult;
 import mapi.lotto.model.result.LottoNumbers;
 import mapi.lotto.model.result.PlusNumbers;
@@ -9,6 +10,8 @@ import mapi.lotto.model.ticket.TicketNumbers;
 import mapi.lotto.repository.LotteryResultRepository;
 import mapi.lotto.repository.LotteryTicketRepository;
 import mapi.lotto.util.TicketType;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,9 +25,10 @@ import java.util.stream.Stream;
 import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
 import static java.time.temporal.TemporalAdjusters.lastDayOfYear;
 
-@Service
+@Slf4j
 @RequiredArgsConstructor
-public class LotteryServiceImpl implements LotteryService {
+@Service
+public class LotteryServiceImpl implements LotteryService, ApplicationListener<ApplicationReadyEvent> {
 
     private final LotteryResultRepository resultRepository;
     private final LotteryTicketRepository ticketRepository;
@@ -83,6 +87,41 @@ public class LotteryServiceImpl implements LotteryService {
 
     @Override
     public Optional<LotteryTicket> findLatestTicketByName(String name) {
-        return ticketRepository.findTop1ByTicketTypeOrderByLotteryResultLotteryDateAsc(name);
+        return ticketRepository.findTop1ByTicketTypeAndLotteryResultLotteryDateNotNullOrderByLotteryResultLotteryDateAsc(name);
+    }
+
+    public Optional<LotteryTicket> findNewestTicketByName(String name) {
+        return ticketRepository.findTop1ByTicketTypeOrderByLotteryResultLotteryDateDesc(name);
+    }
+
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent event) {
+        log.info("Generate new tickets => starting ...");
+        generateNewTickets();
+        log.info("Generate new tickets => done!");
+    }
+
+    @Override
+    public void generateNewTickets() {
+        saveTicketIfNewNotExist(TicketType.RANDOM.getName(), TicketNumbers.generateRandomNumbers());
+
+        Optional<LotteryTicket> latestStaticTicket = findNewestTicketByName(TicketType.STATIC.getName());
+        boolean shouldCreateNewTicket = latestStaticTicket
+                .stream().anyMatch(LotteryServiceImpl::hasOverTwoHitsPerLottery);
+
+        saveTicketIfNewNotExist(TicketType.STATIC.getName(), shouldCreateNewTicket
+                ? TicketNumbers.generateRandomNumbers()
+                : latestStaticTicket.get().getTicketNumbers());
+
+        saveTicketIfNewNotExist(TicketType.MATH.getName(), TicketNumbers.generateDeltaNumbers());
+    }
+
+    private static boolean hasOverTwoHitsPerLottery(LotteryTicket ticket) {
+        LotteryResult result = ticket.getLotteryResult();
+        if (result == null)
+            return true;
+
+        return ticket.getTicketNumbers().countCommonNumbers(result.getLottoNumbers()) >= 2
+                || ticket.getTicketNumbers().countCommonNumbers(result.getPlusNumbers()) >= 2;
     }
 }

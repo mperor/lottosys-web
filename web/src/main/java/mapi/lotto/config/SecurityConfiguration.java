@@ -16,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static jakarta.servlet.DispatcherType.ERROR;
 import static jakarta.servlet.DispatcherType.FORWARD;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @RequiredArgsConstructor
 @Configuration
@@ -26,8 +27,7 @@ public class SecurityConfiguration {
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user = User.builder()
-                .username(securityProperties.getUser().getName())
+        UserDetails user = User.withUsername(securityProperties.getUser().getName())
                 .password(passwordEncoder().encode(securityProperties.getUser().getPassword()))
                 .roles("ADMIN")
                 .build();
@@ -57,7 +57,9 @@ public class SecurityConfiguration {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
                 )
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
+                .httpBasic(withDefaults());
 
         return http.build();
     }

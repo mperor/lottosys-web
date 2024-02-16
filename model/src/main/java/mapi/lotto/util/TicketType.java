@@ -25,7 +25,7 @@ public enum TicketType {
                 }
             }
         }
-        throw new IllegalArgumentException("Name has not been found!");
+        throw new IllegalArgumentException("Ticket type name '%s' has not been found!".formatted(name));
     }
 
     public static class Constants {
