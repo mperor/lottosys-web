@@ -44,19 +44,22 @@
         </profile>
 
         <profile>
-            <id>prod</id>
+            <id>prod-jar</id>
             <dependencies>
                 <dependency>
                     <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
                 </dependency>
+            </dependencies>
+        </profile>
 
-                <!--
+        <profile>
+            <id>prod-war</id>
+            <dependencies>
                 <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
                 </dependency>
-                -->
             </dependencies>
         </profile>
     </profiles>

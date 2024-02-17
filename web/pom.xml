@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>lotto-app</artifactId>
-    <packaging>jar</packaging>
+    <packaging>${packaging.type}</packaging>
 
     <name>web</name>
     <description>Web Module</description>
@@ -44,7 +44,41 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <packaging.type>jar</packaging.type>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod-jar</id>
+            <properties>
+                <packaging.type>jar</packaging.type>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod-war</id>
+            <properties>
+                <packaging.type>war</packaging.type>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -13,7 +13,7 @@
         <!-- Bootstrap -->
         <link href="../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet"/>
         <link href="../static/css/main.css" th:href="@{css/main.css}" rel="stylesheet"/>
-
+        <link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
     </head>
 
     <body>
@@ -26,7 +26,7 @@
             <div th:if="${not lotteryStatistics.isEmpty()}" style="padding-top:20px;">
                 <div th:each="lotteryStatistic : ${lotteryStatistics}" class="panel">
                     <div class="panel-heading" th:classappend="${backgroundClass}">
-                        <h3 class="panel-title" th:text="${lotteryStatistic.lotteryYear}"></h3>
+                        <h3 class="panel-title"><a th:href="@{/{name}(name=${name},year=${lotteryStatistic.lotteryYear})}" th:text="${lotteryStatistic.lotteryYear}"></a></h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
