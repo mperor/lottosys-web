@@ -81,13 +81,15 @@ public class StatisticServiceImpl implements StatisticService, ApplicationListen
         log.info("Generate static statistics => loading ...");
         for (TicketType type : TicketType.values()) {
             var now = Year.now().getValue();
+
             Integer latestYear = lotteryService.findLatestTicketByName(type.getName())
                     .map(lotteryTicket -> lotteryTicket.getLotteryResult().getLotteryDate())
                     .map(LocalDate::getYear)
                     .orElse(now);
 
+            var savedYears = getActiveLotteryYears(type.getName());
 
-            if (latestYear < now) {
+            if (!savedYears.contains(latestYear) && latestYear < now) {
                 IntStream.range(latestYear, now)
                         .peek(nextYear -> log.info("Update {} from year {} !!!", type.getName(), nextYear))
                         .forEach(nextYear -> updateStatisticOfYear(type.getName(), Year.of(nextYear)));

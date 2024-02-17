@@ -9,9 +9,9 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -24,27 +24,35 @@ public class V2_0__import_lottery_results extends BaseJavaMigration {
     public void migrate(Context context) throws Exception {
         JdbcTemplate template = new JdbcTemplate();
 
-        Path lottoCsvFilePath = Path.of(getClass().getResource("lotto-results-2017-2024.csv").toURI());
-        Path plusCsvFilePath = Path.of(getClass().getResource("plus-results-2017-2024.csv").toURI());
+        InputStream lottoCsvStream = V2_0__import_lottery_results.class.getResourceAsStream("lotto-results-2017-2024.csv");
+        InputStream plusCsvStream = V2_0__import_lottery_results.class.getResourceAsStream("plus-results-2017-2024.csv");
 
-        var resultMap = Files.readAllLines(lottoCsvFilePath, StandardCharsets.UTF_8).stream()
-                .skip(1)
-                .map(line -> line.split(";"))
-                .collect(Collectors.toMap(record -> record[0], this::parseToLotteryResult));
+        List<LotteryResult> resultsToImport;
 
-        Files.readAllLines(plusCsvFilePath, StandardCharsets.UTF_8).stream()
-                .skip(1)
-                .map(line -> line.split(";"))
-                .forEach(record -> resultMap.get(record[0]).setPlusNumbers(
-                        new PlusNumbers(
-                                Integer.valueOf(record[4]),
-                                Integer.valueOf(record[5]),
-                                Integer.valueOf(record[6]),
-                                Integer.valueOf(record[7]),
-                                Integer.valueOf(record[8]),
-                                Integer.valueOf(record[9])
-                        )));
-        List<LotteryResult> resultsToImport = resultMap.values().stream().collect(Collectors.toList());
+        try (BufferedReader lottoReader = new BufferedReader(new InputStreamReader(lottoCsvStream));
+             BufferedReader plusReader = new BufferedReader(new InputStreamReader(plusCsvStream))) {
+
+            var resultMap = lottoReader.lines()
+                    .skip(1)
+                    .map(line -> line.split(";"))
+                    .collect(Collectors.toMap(record -> record[0], this::parseToLotteryResult));
+
+
+            plusReader.lines()
+                    .skip(1)
+                    .map(line -> line.split(";"))
+                    .forEach(record -> resultMap.get(record[0]).setPlusNumbers(
+                            new PlusNumbers(
+                                    Integer.valueOf(record[4]),
+                                    Integer.valueOf(record[5]),
+                                    Integer.valueOf(record[6]),
+                                    Integer.valueOf(record[7]),
+                                    Integer.valueOf(record[8]),
+                                    Integer.valueOf(record[9])
+                            )));
+
+            resultsToImport = resultMap.values().stream().collect(Collectors.toList());
+        }
 
         new JdbcTemplate(new SingleConnectionDataSource(context.getConnection(), true))
                 .batchUpdate("INSERT INTO lottery_result" +
