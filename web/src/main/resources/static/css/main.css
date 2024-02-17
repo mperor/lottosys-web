@@ -88,6 +88,11 @@ h4 span {
 
 .btn-group>.btn, .btn-group-vertical>.btn {
     margin-right: 4px;
+    margin-top: 4px;
+}
+
+.btn-group .btn+.btn, .btn-group .btn+.btn-group, .btn-group .btn-group+.btn, .btn-group .btn-group+.btn-group {
+    margin-left: 0px;
 }
 
 .random-bg {
