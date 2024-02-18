@@ -14,7 +14,7 @@ import mapi.lotto.util.PlusPrize;
 @Getter
 public class PlusHits {
 
-    private static final int TICKET_COST = 1;
+    static final int TICKET_COST = 1;
 
     private int p0;
     private int p1;

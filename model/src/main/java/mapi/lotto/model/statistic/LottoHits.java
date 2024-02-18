@@ -14,7 +14,7 @@ import mapi.lotto.util.LottoPrize;
 @Getter
 public class LottoHits {
 
-    private static final int TICKET_COST = 3;
+    static final int TICKET_COST = 3;
 
     private int l0;
     private int l1;
